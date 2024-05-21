@@ -1,7 +1,8 @@
+import csv
 #------------------------------------------- INCISO 1 -------------------------------------------
-def airport_types(aeropuerto):
-    ''' Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los tipos de aeropuertos
-    que se encuentran en el dataset, verificando que no se repitan.'''
+def airport_types(aeropuerto:csv.DictReader):
+    """ Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los tipos de aeropuertos
+    que se encuentran en el dataset, verificando que no se repitan."""
     
     types = []
     for line in aeropuerto:
@@ -10,8 +11,8 @@ def airport_types(aeropuerto):
             types.append(value)
     return types
 
-def informar_airport_types(airports):
-    ''' Esta funcion lo que hace es informar los tipos de aeropuertos que se encuentran en el dataset.'''
+def informar_airport_types(airports:list):
+    """ Esta funcion lo que hace es informar los tipos de aeropuertos que se encuentran en el dataset."""
     
     print(f''' En los tipos de aeropuertos encontramos distintos tipos: 
     \t➡️ Por tamaño: 
@@ -22,9 +23,9 @@ def informar_airport_types(airports):
     \t\t🚁 {airports[4]} - {airports[5]} ''')
 
 #------------------------------------------- INCISO 2 -------------------------------------------
-def airports_type_elevation(aeropuerto, elevation):
-    ''' Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los aeropuertos, que se encuentran en la 
-    elevacion que el usuario le ingresa por parametro.'''
+def airports_type_elevation(aeropuerto:csv.DictReader, elevation:str):
+    """ Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los aeropuertos, que se encuentran en la 
+    elevacion que el usuario le ingresa por parametro."""
     
     airports_list = []
     for line in aeropuerto:
@@ -32,7 +33,7 @@ def airports_type_elevation(aeropuerto, elevation):
             airports_list.append(line['name'])
     return airports_list
 
-def informar_airports_elevations(airports, elevation):
+def informar_airports_elevations(airports:list, elevation:str):
     ''' Esta funcion lo que hace es informar los aeropuertos que cumplen la condicion.'''
     
     print(f''' \t \t 🔸 El tipo de elevacion elegida fue: {elevation} 🔸
@@ -42,9 +43,9 @@ def informar_airports_elevations(airports, elevation):
 
 #------------------------------------------- INCISO 3 -------------------------------------------
 
-def airports_by_condition_elevation(reader, elevation, condition):
-    ''' Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los aeropuertos, que se encuentran en la 
-    elevacion que el usuario le ingresa por parametro y que cumplen la condicion que el usuario le ingresa por parametro.'''
+def airports_by_condition_elevation(reader:csv.DictReader, elevation:int, condition:str):
+    """ Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los aeropuertos, que se encuentran en la 
+    elevacion que el usuario le ingresa por parametro y que cumplen la condicion que el usuario le ingresa por parametro."""
     
     airports_list = []
     match condition:
@@ -65,8 +66,8 @@ def airports_by_condition_elevation(reader, elevation, condition):
     return airports_list
 
 
-def informar_airports_elevations_condition(airports, elevation, condition):
-    ''' Esta funcion lo que hace es informar los aeropuertos que cumplen la condicion.'''
+def informar_airports_elevations_condition(airports:list, elevation:int, condition:str):
+    """ Esta funcion lo que hace es informar los aeropuertos que cumplen la condicion."""
    
     print(f''' \t \t 🔸 La elevacion elegida fue: {elevation} .ft 🔸
     🛫 Los aeropuertos que se encuentran {condition}es a {elevation}.ft son: ''')
@@ -74,44 +75,52 @@ def informar_airports_elevations_condition(airports, elevation, condition):
         print(f'🛩️: {airport}')
 
 #------------------------------------------- INCISO 4 -------------------------------------------
-def punto4(resumen_adaptado,aeropuerto,lagos,conectividad):
-    numero = input('Ingrese un numero: ')
+def airports_lakes_connectivity_by_population(resumen_adaptado:csv.DictReader, aeropuerto:csv.DictReader, lagos:csv.DictReader, conectividad:csv.DictReader):
+    '''Este proceso informa sobre aeropuertos, lagos y conectividades en base a la población de las provincias.
+    Se informan con 2 inputs los cuales son un numero (ingresar poblacion) y un mayor o menor,
+    que este sirve para informar respectivamente los datos mayores o menores al numero.
+    '''
+    numero = int(input('Ingrese el numero de poblacion que desee: '))
 
-    numero = int(numero)
+    mayOmen = input('Ingrese si quiere buscar los datos mayores o menores a la poblacion ingresada (MAYOR / MENOR): ')
 
-    mayOmen = input('Ingrese mayor o menor: ')
-
-    provinciasMayores = []
+    provincias = []
 
     next(resumen_adaptado) # Paso al siguiente ya que el primero tiene la poblacion total.
 
     for line in resumen_adaptado:
         if mayOmen == 'mayor':
             if int(line['Total de población']) > numero:
-                provinciasMayores.append(line['Jurisdicción'].lower())
+                provincias.append(line['Jurisdicción'].lower())
         if mayOmen == 'menor':
             if int(line['Total de población']) < numero:
-                provinciasMayores.append(line['Jurisdicción'].lower())
+                provincias.append(line['Jurisdicción'].lower())
 
     print('Aeropuertos: ')
 
     for line in aeropuerto:
-        if line['municipality'].lower() in provinciasMayores:
+        if line['municipality'].lower() in provincias:
             print(f"ID: {line['id']}, Nombre: {line['name']}")
             
     print('Lagos: ')
 
     for line in lagos:
-        if line['Ubicación'].lower() in provinciasMayores:
+        if line['Ubicación'].lower() in provincias:
             print(f"Nombre: {line['Nombre']}, Ubicación: {line['Ubicación']}")
 
     print('Conectividades: ')
 
     for line in conectividad:
-        if line['Provincia'].lower() in provinciasMayores:
+        if line['Provincia'].lower() in provincias:
             print(f"Provincia: {line['Provincia']}, Localidad: {line['Localidad']}")
 #------------------------------------------- INCISO 5 -------------------------------------------
-def punto5(ar, aeropuerto):
+def airports_in_capitals(ar:csv.DictReader, aeropuerto:csv.DictReader):
+    '''Este proceso busca e informa los aeropuertos que se encuentran en capitales.
+    El proceso crea un diccionario donde las claves son ciudades y los valores son "si son o no capitales" (admin TRUE, minor FALSE).
+    Luego, itera sobre los aeropuertos. Si la municipalidad/ubicacion/ciudad del aeropuerto está presente en el diccionario
+    de capitales y es capital (admin), imprime la información de ese aeropuerto.
+    '''
+
     capitales = {}
 
     for line in ar:
@@ -120,9 +129,10 @@ def punto5(ar, aeropuerto):
     for line in aeropuerto:
         if line['municipality'] in capitales:
             if capitales[line['municipality']] == 'admin':
-                print(f"ID: {line['id']}, Nombre: {line['name']}")
+                print(f"ID: {line['id']} | Nombre: {line['name']} | Provincia: {line['prov_name']}")
 #------------------------------------------- INCISO 6 -------------------------------------------
-def punto6(lagos):
+def lakes_by_surface_area(lagos:csv.DictReader):
+    '''Esta funcion informa los lagos en base a un tamaño dado a traves de un input. (chico,medio,grande)'''
     tamaño = input('Ingrese un tamaño (chico,medio,grande):').lower()
 
     for line in lagos:
@@ -130,19 +140,21 @@ def punto6(lagos):
             print(f"Nombre: {line['Nombre']}, Ubicación: {line['Ubicación']}, Tamaño: {line['Sup Tamaños']}")
 #------------------------------------------- INCISO 7 -------------------------------------------
 
-def top5_juridicciones(reader_resumen_adaptado):
+def top5_juridicciones(reader_resumen_adaptado:csv.DictReader):
+    '''Esta funcion retorna una lista con las 5 jurisdicciones con mayor porcentaje de poblacion en situacion de calle'''
     next(reader_resumen_adaptado) #ignora la fila Total Pais
 
-    filas = sorted(reader_resumen_adaptado, key=lambda x: float(x['Porcentaje de poblacion en situacion de calle'])) #ordena las jurisdicciones de manera ascendete
+    filas = sorted(reader_resumen_adaptado, key=lambda x: float(x['Porcentaje de poblacion en situacion de calle'])) #ordena de manera ascendete segun Porcentaje de poblacion en situacion de calle 
 
     top_5_jurisdicciones = filas[-5:] #ultimas 5
 
-    for jurisdiccion in reversed(top_5_jurisdicciones): #recorre al reves para que se lea de la mayor a la menor
-        print(f"Jurisdicción: {jurisdiccion['Jurisdicción']}, Porcentaje: {jurisdiccion['Porcentaje de poblacion en situacion de calle']}")
+    return top_5_jurisdicciones[::-1] #invertimos la lista asi queda de mayor a menor
 
 #------------------------------------------- INCISO 8 -------------------------------------------
 
-def informar_gender_gap(reader_resumen_adaptado):
+def gender_gap(reader_resumen_adaptado:csv.DictReader):
+    '''Esta función retorna la juridisccion donde hay una mayor diferencia entre la cantidad de hombres y mujeres registrados al nacer,
+    y también retorna cuán grande es esa diferencia. (retorna un str y un int)'''
     mayor_brecha_jurisdiccion = ""
     mayor_brecha = 0
 
@@ -157,28 +169,22 @@ def informar_gender_gap(reader_resumen_adaptado):
             mayor_brecha = brecha
             mayor_brecha_jurisdiccion = row['Jurisdicción']
             
-    print(f"Jurisdicción con mayor brecha: {mayor_brecha_jurisdiccion}")
-    print(f"Brecha poblacional: {mayor_brecha}")
+    return mayor_brecha_jurisdiccion, mayor_brecha
 
 #------------------------------------------- INCISO 9 -------------------------------------------
 
-def informar_connection_types(reader_conectividad):
+def connection_types(reader_conectividad:csv.DictReader):
+    '''Esta funcion retorna una lista con los tipos de conectividad existentes'''
     encabezados_no_deseados = ["Provincia", "Partido", "Localidad", "Poblacion", "link", "Latitud", "Longitud", "posee_conectividad"] #me guardo los campos a ignorar
 
     conexiones = [encabezado for encabezado in reader_conectividad.fieldnames if not encabezado in encabezados_no_deseados] #agarro los campos de conexiones
 
-    print("Tipos de conexciones:")
-    print(conexiones)
+    return conexiones
     
 #------------------------------------------- INCISO 10 -------------------------------------------
 
-def validar(palabra:str)-> str:  # Reemplaza las letras con acento de un string una sin acentos
-    tildes={"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u"}
-    for i in tildes:
-        palabra = palabra.replace(i,tildes[i])
-    return palabra
-
-def cant_Localidades_Conectividad (reader_conectividad):
+def cant_Localidades_Conectividad (reader_conectividad:csv.DictReader):
+    '''Esta funcion retorna un diccionario con todos los tipos de conectividad y la cantidad de localidades que la poseen'''
     ADSL = 4
     LINK = 13
     cant_conectividad = {} 
@@ -188,7 +194,7 @@ def cant_Localidades_Conectividad (reader_conectividad):
         cant_conectividad[conectividad] = 0
         
     for line in reader_conectividad:  # recorro el archivo
-        for clave in fieldnames:  # analizo los items cuyo indice estan en el diccionario
+        for clave in fieldnames:  # analizo los items cuyo indice estan en el diccionario, osea que sean tipos de conectividad
             if line[clave] == 'SI':
                 cant_conectividad[clave] += 1
 
@@ -196,45 +202,56 @@ def cant_Localidades_Conectividad (reader_conectividad):
 
 #------------------------------------------- INCISO 11 -------------------------------------------
 
-def provincias_ciudades_con_fibraoptica (reader_ar, reader_conectividad):
+def validar(palabra:str)-> str:  # Reemplaza las letras con acento de un string una sin acentos
+    '''Esta funcion retorna el string en minusculas que se recibio sin acentos'''
+    tildes={"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u"}
+    for i in tildes:
+        palabra = palabra.replace(i,tildes[i])
+    return palabra
+
+def provincias_ciudades_con_fibraoptica (reader_ar:csv.DictReader, reader_conectividad:csv.DictReader):
+    '''Esta funcion retorna los nombres de la provincias que tengan todas sus ciudades con fibra optica, si alguna ciudad no se conoce si tiene o no fibra optica se tendran en cuenta las demas que si tengan'''
     provCiudades = {}
     next(reader_ar)
-    for line in reader_ar:  # creo un diccionario cuya llave es el nombre de cada provincia y sus elementos todas las ciudades de dicha provincia
-        if validar(line['admin_name'].lower()) not in provCiudades:  # utilizo la funcion validar ya que los nombres de las provincias en cada archivo son diferentes
-            provCiudades[validar(line['admin_name']).lower()] = [line['city']]
+    for line in reader_ar: # creo un diccionario cuya llave es el nombre de cada provincia y sus elementos todas las ciudades de dicha provincia
+        nom_prov = validar(line['admin_name'].lower())
+        if nom_prov not in provCiudades:  # utilizo la funcion validar ya que los nombres de las provincias en cada archivo son diferentes
+            provCiudades[nom_prov] = [line['city']]
         else:
-            provCiudades[validar(line['admin_name']).lower()].append(line['city'])
+            provCiudades[nom_prov].append(line['city'])
     provCiudades['tierra del fuego'] = provCiudades.pop('tierra del fuego, antartida e islas del atlantico sur')  # arreglo el nombre de tierra del fuego para que se pueda comparar en ambos archivos
 
     provinciasConFibraOptica = {}
     for line in reader_conectividad:  # creo un diccionario cuya llave es el nombre de la provincia y su dato es true si todas las ciudades tienen fibra optica y false si al menos 1 no tiene
         if 'CABA' not in line['Provincia']:
-            if line['Localidad'] in provCiudades[validar(line['Provincia']).lower()]:
-                if validar(line['Provincia']).lower() not in provinciasConFibraOptica:
-                    provinciasConFibraOptica[validar(line['Provincia']).lower()] = True
+            nom_prov = validar(line['Provincia']).lower()
+            if line['Localidad'] in provCiudades[nom_prov]:  # si la localidad pertenece a alguna ciudad de su capital
+                if nom_prov not in provinciasConFibraOptica:
+                    provinciasConFibraOptica[nom_prov] = True
                 if line['FIBRAOPTICA'] == 'NO':
-                    provinciasConFibraOptica[validar(line['Provincia']).lower()] = False
+                    provinciasConFibraOptica[nom_prov] = False
 
     for prov in provinciasConFibraOptica:
         if provinciasConFibraOptica[prov] == True:
-            print(prov)
+            print(f" 🔸 {prov}")
 
 #------------------------------------------- INCISO 12 -------------------------------------------
 
-def provincias_capitales_conectividad (reader_ar, reader_conectividad):
+def provincias_capitales_conectividad (reader_ar:csv.DictReader, reader_conectividad:csv.DictReader):
+    '''Esta funcion retorna un diccionario cuya llaves son los nombres de la provincia y su valor su respectiva capital y ademas si posee conectividad, si no se encuentra la capital entonces dira conectividad desconocida'''
     capitales = {}
     next(reader_ar)
     for line in reader_ar:  # creo un diccionario el cual tiene como llave el nombre de cada provincia y como dato su respectiva capital
-        if line['capital'] == 'admin':  #guardar el nombre de la provincia y su capital en variables para que sea mas facil de leer
-            capitales[validar(line['admin_name'].lower())] = validar(line['city'].lower())
+        if line['capital'] == 'admin':  # guardar el nombre de la provincia y su capital en variables para que sea mas facil de leer
+            capitales[validar(line['admin_name'].lower())] = line['city']
     capitales['tierra del fuego'] = capitales.pop('tierra del fuego, antartida e islas del atlantico sur')  # arreglo el nombre de tierra del fuego de nuevo
 
     for line in reader_conectividad:  # recorro el archivo verificando si cada localidad pertenece a la capital de alguna provincia
-        if validar(line['Localidad'].lower()) in capitales.values():
+        if line['Localidad'] in capitales.values():  # si la localidad pertenece a alguna capital
             if line['posee_conectividad'] == 'SI':
-                capitales[line['Provincia'].lower()] += ' posee conectividad'
+                capitales[validar(line['Provincia'].lower())] += ' posee conectividad'
             else:
-                capitales[line['Provincia'].lower()] += ' NO posee conectividad'
+                capitales[validar(line['Provincia'].lower())] += ' NO posee conectividad'
 
     for prov in capitales:  # recorro el diccionario para verificar si alguna ciudad no se encontro
         if 'conectividad' not in capitales[prov]:

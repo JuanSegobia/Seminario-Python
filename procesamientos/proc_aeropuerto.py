@@ -11,9 +11,9 @@ def categorize_elevation(elevation):
 
 def process_airports_dataset():
 
-    airports_dataset_path = pathlib.Path("./datasets/ar-airports.csv")
-    cities_dataset_path = pathlib.Path("./datasets/ar.csv")
-    output_path = pathlib.Path("./custom_datasets/processed_airports.csv")
+    airports_dataset_path = pathlib.Path("../datasets/ar-airports.csv")
+    cities_dataset_path = pathlib.Path("../datasets/ar.csv")
+    output_path = pathlib.Path("../custom_datasets/processed_airports.csv")
 
     city_province_mapping = {}
 
@@ -41,4 +41,5 @@ def process_airports_dataset():
 
             writer.writerow(row)
 
-process_airports_dataset()
+if __name__ == '__main__':
+    process_airports_dataset()
