@@ -1,170 +1,32 @@
-{
-    "juansegobia2002@gmail.com": {
-        "username": "jota",
-        "score": 2,
-        "difficulty": "Facil",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "sego@gmail.com": {
-        "username": "jota",
-        "score": 0,
-        "difficulty": "Medio",
-        "theme": "Lagos",
-        "gender": "Femenino"
-    },
-    "dant@gmail.com": {
-        "username": "dantesin",
-        "score": 2,
-        "difficulty": "Dificil",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "user21@example.com": {
-        "username": "usuario21",
-        "score": 8,
-        "difficulty": "Facil",
-        "theme": "Censo 2022",
-        "gender": "Femenino"
-    },
-    "user22@example.com": {
-        "username": "usuario22",
-        "score": 12,
-        "difficulty": "Medio",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "user23@example.com": {
-        "username": "usuario23",
-        "score": 15,
-        "difficulty": "Dificil",
-        "theme": "Lagos",
-        "gender": "Femenino"
-    },
-    "user24@example.com": {
-        "username": "usuario24",
-        "score": 3,
-        "difficulty": "Facil",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "user25@example.com": {
-        "username": "usuario25",
-        "score": 10,
-        "difficulty": "Medio",
-        "theme": "Censo 2022",
-        "gender": "Femenino"
-    },
-    "user26@example.com": {
-        "username": "usuario26",
-        "score": 6,
-        "difficulty": "Dificil",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "user27@example.com": {
-        "username": "usuario27",
-        "score": 18,
-        "difficulty": "Facil",
-        "theme": "Lagos",
-        "gender": "Femenino"
-    },
-    "user28@example.com": {
-        "username": "usuario28",
-        "score": 9,
-        "difficulty": "Medio",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "user29@example.com": {
-        "username": "usuario29",
-        "score": 14,
-        "difficulty": "Dificil",
-        "theme": "Censo 2022",
-        "gender": "Femenino"
-    },
-    "user30@example.com": {
-        "username": "usuario30",
-        "score": 7,
-        "difficulty": "Facil",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "user31@example.com": {
-        "username": "usuario31",
-        "score": 11,
-        "difficulty": "Medio",
-        "theme": "Lagos",
-        "gender": "Femenino"
-    },
-    "user32@example.com": {
-        "username": "usuario32",
-        "score": 13,
-        "difficulty": "Dificil",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "user33@example.com": {
-        "username": "usuario33",
-        "score": 16,
-        "difficulty": "Facil",
-        "theme": "Censo 2022",
-        "gender": "Femenino"
-    },
-    "user34@example.com": {
-        "username": "usuario34",
-        "score": 2,
-        "difficulty": "Medio",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "user35@example.com": {
-        "username": "usuario35",
+[
+    {
+        "mail": "juansegobia2002@gmail.com",
+        "username": "juans",
         "score": 4,
-        "difficulty": "Dificil",
-        "theme": "Lagos",
-        "gender": "Femenino"
-    },
-    "user36@example.com": {
-        "username": "usuario36",
-        "score": 20,
-        "difficulty": "Facil",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "user37@example.com": {
-        "username": "usuario37",
-        "score": 19,
-        "difficulty": "Medio",
-        "theme": "Censo 2022",
-        "gender": "Femenino"
-    },
-    "user38@example.com": {
-        "username": "usuario38",
-        "score": 17,
-        "difficulty": "Dificil",
-        "theme": "Aeropuertos",
-        "gender": "Masculino"
-    },
-    "user39@example.com": {
-        "username": "usuario39",
-        "score": 5,
         "difficulty": "Facil",
         "theme": "Lagos",
-        "gender": "Femenino"
+        "gender": "Masculino",
+        "date": "2024-06-27",
+        "incorrects": 1
     },
-    "user40@example.com": {
-        "username": "usuario40",
-        "score": 1,
-        "difficulty": "Medio",
-        "theme": "Conectividad",
-        "gender": "Masculino"
-    },
-    "tomi@gmail.com": {
-        "username": "tomasito",
+    {
+        "mail": "juansegobia2002@gmail.com",
+        "username": "juans",
         "score": 2,
         "difficulty": "Facil",
-        "theme": "Censo 2022",
-        "gender": "Masculino"
+        "theme": "Lagos",
+        "gender": "Masculino",
+        "date": "2024-06-27",
+        "incorrects": 3
+    },
+    {
+        "mail": "juansegobia2002@gmail.com",
+        "username": "juans",
+        "score": 1,
+        "difficulty": "Facil",
+        "theme": "Lagos",
+        "gender": "Masculino",
+        "date": "2024-06-27",
+        "incorrects": 4
     }
-}
+]

@@ -1,4 +1,5 @@
 import csv
+from validations import validar
 #------------------------------------------- INCISO 1 -------------------------------------------
 def airport_types(aeropuerto:csv.DictReader):
     """ Esta funcion lo que hace es crear una lista vacia, en la cual yo voy a ir agregando los tipos de aeropuertos
@@ -75,67 +76,67 @@ def informar_airports_elevations_condition(airports:list, elevation:int, conditi
         print(f'🛩️: {airport}')
 
 #------------------------------------------- INCISO 4 -------------------------------------------
-def airports_lakes_connectivity_by_population(resumen_adaptado:csv.DictReader, aeropuerto:csv.DictReader, lagos:csv.DictReader, conectividad:csv.DictReader):
+def airports_lakes_connectivity_by_population(resumen_adaptado:csv.DictReader, airports:csv.DictReader, lakes:csv.DictReader, conectivity:csv.DictReader):
     '''Este proceso informa sobre aeropuertos, lagos y conectividades en base a la población de las provincias.
     Se informan con 2 inputs los cuales son un numero (ingresar poblacion) y un mayor o menor,
     que este sirve para informar respectivamente los datos mayores o menores al numero.
     '''
-    numero = int(input('Ingrese el numero de poblacion que desee: '))
+    number = int(input('Ingrese el numero de poblacion que desee: '))
 
-    mayOmen = input('Ingrese si quiere buscar los datos mayores o menores a la poblacion ingresada (MAYOR / MENOR): ')
+    higher_or_lower = input('Ingrese si quiere buscar los datos mayores o menores a la poblacion ingresada (MAYOR / MENOR): ')
 
-    provincias = []
+    provinces = []
 
     next(resumen_adaptado) # Paso al siguiente ya que el primero tiene la poblacion total.
 
     for line in resumen_adaptado:
-        if mayOmen == 'mayor':
-            if int(line['Total de población']) > numero:
-                provincias.append(line['Jurisdicción'].lower())
-        if mayOmen == 'menor':
-            if int(line['Total de población']) < numero:
-                provincias.append(line['Jurisdicción'].lower())
+        if higher_or_lower == 'mayor':
+            if int(line['Total de población']) > number:
+                provinces.append(line['Jurisdicción'].lower())
+        if higher_or_lower == 'menor':
+            if int(line['Total de población']) < number:
+                provinces.append(line['Jurisdicción'].lower())
 
     print('Aeropuertos: ')
 
-    for line in aeropuerto:
-        if line['municipality'].lower() in provincias:
+    for line in airports:
+        if line['municipality'].lower() in provinces:
             print(f"ID: {line['id']}, Nombre: {line['name']}")
             
     print('Lagos: ')
 
-    for line in lagos:
-        if line['Ubicación'].lower() in provincias:
+    for line in lakes:
+        if line['Ubicación'].lower() in provinces:
             print(f"Nombre: {line['Nombre']}, Ubicación: {line['Ubicación']}")
 
     print('Conectividades: ')
 
-    for line in conectividad:
-        if line['Provincia'].lower() in provincias:
+    for line in conectivity:
+        if line['Provincia'].lower() in provinces:
             print(f"Provincia: {line['Provincia']}, Localidad: {line['Localidad']}")
 #------------------------------------------- INCISO 5 -------------------------------------------
-def airports_in_capitals(ar:csv.DictReader, aeropuerto:csv.DictReader):
+def airports_in_capitals(ar:csv.DictReader, airport:csv.DictReader):
     '''Este proceso busca e informa los aeropuertos que se encuentran en capitales.
     El proceso crea un diccionario donde las claves son ciudades y los valores son "si son o no capitales" (admin TRUE, minor FALSE).
     Luego, itera sobre los aeropuertos. Si la municipalidad/ubicacion/ciudad del aeropuerto está presente en el diccionario
     de capitales y es capital (admin), imprime la información de ese aeropuerto.
     '''
 
-    capitales = {}
+    capitals = {}
 
     for line in ar:
-        capitales[line['city']] = line['capital']
+        capitals[line['city']] = line['capital']
 
-    for line in aeropuerto:
-        if line['municipality'] in capitales:
-            if capitales[line['municipality']] == 'admin':
+    for line in airport:
+        if line['municipality'] in capitals:
+            if capitals[line['municipality']] == 'admin':
                 print(f"ID: {line['id']} | Nombre: {line['name']} | Provincia: {line['prov_name']}")
 #------------------------------------------- INCISO 6 -------------------------------------------
-def lakes_by_surface_area(lagos:csv.DictReader):
+def lakes_by_surface_area(lakes:csv.DictReader):
     '''Esta funcion informa los lagos en base a un tamaño dado a traves de un input. (chico,medio,grande)'''
     tamaño = input('Ingrese un tamaño (chico,medio,grande):').lower()
 
-    for line in lagos:
+    for line in lakes:
         if line['Sup Tamaños'] == tamaño:
             print(f"Nombre: {line['Nombre']}, Ubicación: {line['Ubicación']}, Tamaño: {line['Sup Tamaños']}")
 #------------------------------------------- INCISO 7 -------------------------------------------
@@ -144,9 +145,9 @@ def top5_juridicciones(reader_resumen_adaptado:csv.DictReader):
     '''Esta funcion retorna una lista con las 5 jurisdicciones con mayor porcentaje de poblacion en situacion de calle'''
     next(reader_resumen_adaptado) #ignora la fila Total Pais
 
-    filas = sorted(reader_resumen_adaptado, key=lambda x: float(x['Porcentaje de poblacion en situacion de calle'])) #ordena de manera ascendete segun Porcentaje de poblacion en situacion de calle 
+    rows = sorted(reader_resumen_adaptado, key=lambda x: float(x['Porcentaje de poblacion en situacion de calle'])) #ordena de manera ascendete segun Porcentaje de poblacion en situacion de calle 
 
-    top_5_jurisdicciones = filas[-5:] #ultimas 5
+    top_5_jurisdicciones = rows[-5:] #ultimas 5
 
     return top_5_jurisdicciones[::-1] #invertimos la lista asi queda de mayor a menor
 
@@ -201,13 +202,6 @@ def cant_Localidades_Conectividad (reader_conectividad:csv.DictReader):
     return cant_conectividad
 
 #------------------------------------------- INCISO 11 -------------------------------------------
-
-def validar(palabra:str)-> str:  # Reemplaza las letras con acento de un string una sin acentos
-    '''Esta funcion retorna el string en minusculas que se recibio sin acentos'''
-    tildes={"á": "a", "é": "e", "í": "i", "ó": "o", "ú": "u"}
-    for i in tildes:
-        palabra = palabra.replace(i,tildes[i])
-    return palabra
 
 def provincias_ciudades_con_fibraoptica (reader_ar:csv.DictReader, reader_conectividad:csv.DictReader):
     '''Esta funcion retorna los nombres de la provincias que tengan todas sus ciudades con fibra optica, si alguna ciudad no se conoce si tiene o no fibra optica se tendran en cuenta las demas que si tengan'''
